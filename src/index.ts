@@ -1,22 +1,22 @@
 import {exec} from 'child_process';
 
-interface Config {
+export interface Config {
   apiKey: string;
   spaceId: string;
   pathToGeneratedTsFile: string;
-}
-
-let config: Config | null = null;
-
-export function initGenerate(options: Config): void {
-  config = options;
 }
 
 export function getConfig(): Config | null {
   return config;
 }
 
-export function generate() {
+export let config: Config | null = null;
+
+export function initGenerate(options: Config): void {
+  config = options;
+}
+
+export async function generate() {
   if (!config?.spaceId) {
     console.error('SpaceId not initialized. Call init() with the configuration first.');
   }
