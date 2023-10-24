@@ -2,21 +2,26 @@ import {compile} from 'json-schema-to-typescript';
 import StoryblokClient from 'storyblok-js-client';
 import camelcase from 'camelcase';
 import fs from 'fs';
-import {getConfig} from './src/index';
+import {getConfig} from './generate.js';
 
-const config = getConfig();
+let config = null;
+const getAndCheckConfig = () => {
+  config = getConfig();
+  console.log(config, 'test');
+  if (!config) {
+    console.error('Config not initialized. Call init() with the configuration first.');
+  }
+};
 
-
-
+getAndCheckConfig();
 const pathToTsFile = config.pathToGeneratedTsFile;
 // path to generated export component file
 const pathToExportComponentsFile = './json/exportComponents.json';
 const pathToExtendFiles = './json/extend';
 
-//change the number in a new project (is the spaceID from storyblok) also change in package.json!
-import componentsJson from `./json/components.${config.spaceId}.json` assert {type: 'json'};
-import customComponentsJson from './json/customComponents.json' assert {type: 'json'};
-import exportTypes from './json/exportComponents.json' assert {type: 'json'};
+const componentsJson = JSON.parse(fs.readFileSync(`${__dirname}/../json/components.${config.spaceId}.json`, 'utf8'));
+const customComponentsJson = JSON.parse(fs.readFileSync(`${__dirname}/../json/customComponents.json`, 'utf8'));
+const exportComponents = JSON.parse(fs.readFileSync(`${__dirname}/../json/exportComponents.json`, 'utf8'));
 
 let tsString = [];
 const groupUuids = {};

@@ -2,13 +2,12 @@
   "name": "storyblok-generate-types",
   "version": "1.0.0",
   "description": "Automatically pulls all components from your Storyblok project and generates types for it.",
-  "main": "index.ts",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "npx tsc"
   },
   "bin": {
-    "generate-storyblok-types": "./src/cli.ts"
+    "storyblok-generate-types": "./dist/index.js"
   },
   "repository": {
     "type": "git",
