@@ -1,0 +1,35 @@
+{
+  "name": "storyblok-generate-types",
+  "version": "1.0.0",
+  "description": "Automatically pulls all components from your Storyblok project and generates types for it.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lilxdomi/Storyblok-Generate-Types.git"
+  },
+  "keywords": [
+    "Storyblok",
+    "Generate",
+    "Typescript",
+    "Types"
+  ],
+  "author": "Dominik Dorrer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lilxdomi/Storyblok-Generate-Types/issues"
+  },
+  "homepage": "https://github.com/Lilxdomi/Storyblok-Generate-Types#readme",
+  "devDependencies": {
+    "@types/node": "^20.8.8",
+    "camelcase": "^8.0.0",
+    "json-schema-to-typescript": "^13.1.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@storyblok/react": "^2.4.7"
+  }
+}

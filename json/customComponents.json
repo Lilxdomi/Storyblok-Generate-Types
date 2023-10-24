@@ -1,0 +1,205 @@
+{
+  "components": [
+    {
+      "name": "SBStory",
+      "allOf": [{"$ref": "storyblok/types/extendFiles/page.json"}],
+      "schema": {
+        "first_published_at": {
+          "type": "text",
+          "required": false,
+          "pos": 1
+        },
+        "default_full_slug": {
+          "type": "text",
+          "required": true,
+          "pos": 2
+        },
+        "full_slug": {
+          "type": "text",
+          "required": true,
+          "pos": 3
+        },
+        "tags": {
+          "type": "customArray",
+          "required": false,
+          "items": {
+            "tsType": "String"
+          },
+          "pos": 4
+        }
+      }
+    },
+    {
+      "name": "SBAssetFile",
+      "schema": {
+        "alt": {
+          "type": "text",
+          "required": false,
+          "pos": 1
+        },
+        "copyright": {
+          "type": "text",
+          "required": false,
+          "pos": 2
+        },
+        "id": {
+          "type": "text",
+          "required": true,
+          "pos": 3
+        },
+        "filename": {
+          "type": "text",
+          "required": true,
+          "pos": 4
+        },
+        "name": {
+          "type": "text",
+          "required": true,
+          "pos": 5
+        },
+        "title": {
+          "type": "text",
+          "required": false,
+          "pos": 6
+        },
+        "base64": {
+          "type": "text",
+          "required": false,
+          "pos": 7
+        },
+        "focus": {
+          "type": "text",
+          "required": false,
+          "pos": 8
+        }
+      }
+    },
+    {
+      "name": "SBLink",
+      "schema": {
+        "url": {
+          "type": "text",
+          "required": true,
+          "pos": 1
+        },
+        "cached_url": {
+          "type": "text",
+          "required": true,
+          "pos": 2
+        },
+        "email": {
+          "type": "text",
+          "required": false,
+          "pos": 3
+        },
+        "id": {
+          "type": "text",
+          "required": true,
+          "pos": 4
+        },
+        "fieldtype": {
+          "type": "text",
+          "required": true,
+          "pos": 5
+        },
+        "anchor": {
+          "type": "text",
+          "required": false,
+          "pos": 6
+        },
+        "linktype": {
+          "type": "enum",
+          "enum": ["url", "story", "asset", "email"],
+          "pos": 7
+        }
+      }
+    },
+    {
+      "name": "SBLinkHref",
+      "schema": {
+        "anchor": {
+          "type": "text",
+          "required": false,
+          "pos": 1
+        },
+        "href": {
+          "type": "text",
+          "required": true,
+          "pos": 2
+        },
+        "linktype": {
+          "type": "enum",
+          "enum": ["url", "story", "asset", "email"],
+          "pos": 3
+        }
+      }
+    },
+    {
+      "name": "SBSeo",
+      "schema": {
+        "description": {
+          "type": "text",
+          "required": true,
+          "pos": 1
+        },
+        "og_description": {
+          "type": "text",
+          "required": true,
+          "pos": 2
+        },
+        "og_image": {
+          "type": "text",
+          "required": true,
+          "pos": 3
+        },
+        "og_title": {
+          "type": "text",
+          "required": true,
+          "pos": 4
+        },
+        "plugin": {
+          "type": "text",
+          "required": true,
+          "pos": 5
+        },
+        "title": {
+          "type": "text",
+          "required": true,
+          "pos": 6
+        },
+        "twitter_description": {
+          "type": "text",
+          "required": true,
+          "pos": 7
+        },
+        "twitter_image": {
+          "type": "text",
+          "required": true,
+          "pos": 8
+        },
+        "twitter_title": {
+          "type": "text",
+          "required": true,
+          "pos": 9
+        },
+        "_uid": {
+          "type": "text",
+          "required": true,
+          "pos": 10
+        }
+      }
+    },
+    {
+      "name": "SBRichtext",
+      "schema": {
+        "content": {
+          "type": "customArray",
+          "items": {
+            "tsType": "Object"
+          },
+          "pos": 1
+        }
+      }
+    }
+  ]
+}
