@@ -20,7 +20,7 @@ $ npm install -g storyblok-generate-types
 $ storyblok-generate-types COMMAND
 running command...
 $ storyblok-generate-types (--version)
-storyblok-generate-types/1.0.8 darwin-arm64 node-v18.16.1
+storyblok-generate-types/1.0.9 darwin-arm64 node-v18.16.1
 $ storyblok-generate-types --help [COMMAND]
 USAGE
   $ storyblok-generate-types COMMAND
@@ -89,7 +89,7 @@ EXAMPLES
   Pulled components successfully
 ```
 
-_See code: [src/commands/generate/index.ts](https://github.com/Lilxdomi/storyblok-generate-types/blob/v1.0.8/src/commands/generate/index.ts)_
+_See code: [src/commands/generate/index.ts](https://github.com/Lilxdomi/storyblok-generate-types/blob/v1.0.9/src/commands/generate/index.ts)_
 
 ## `storyblok-generate-types help [COMMANDS]`
 
