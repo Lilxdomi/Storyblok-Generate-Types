@@ -1,7 +1,7 @@
 import {Command} from '@oclif/core'
 import {generate} from '../../utils/generate'
 
-export default class Hello extends Command {
+export default class Generate extends Command {
   static description = 'Generate your Types'
 
   static examples = [
