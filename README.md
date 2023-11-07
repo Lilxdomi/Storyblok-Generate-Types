@@ -20,7 +20,7 @@ $ npm install -g storyblok-generate-types
 $ storyblok-generate-types COMMAND
 running command...
 $ storyblok-generate-types (--version)
-storyblok-generate-types/1.0.6 darwin-arm64 node-v18.16.1
+storyblok-generate-types/1.0.7 darwin-arm64 node-v18.16.1
 $ storyblok-generate-types --help [COMMAND]
 USAGE
   $ storyblok-generate-types COMMAND
@@ -61,7 +61,6 @@ You need to create a `generateTypesConfig.json` file to pass the needed options.
 # Commands
 
 <!-- commands -->
-* [`storyblok-generate-types generate`](#storyblok-generate-types-generate)
 * [`storyblok-generate-types help [COMMANDS]`](#storyblok-generate-types-help-commands)
 * [`storyblok-generate-types plugins`](#storyblok-generate-types-plugins)
 * [`storyblok-generate-types plugins:install PLUGIN...`](#storyblok-generate-types-pluginsinstall-plugin)
@@ -72,24 +71,6 @@ You need to create a `generateTypesConfig.json` file to pass the needed options.
 * [`storyblok-generate-types plugins:uninstall PLUGIN...`](#storyblok-generate-types-pluginsuninstall-plugin-1)
 * [`storyblok-generate-types plugins:uninstall PLUGIN...`](#storyblok-generate-types-pluginsuninstall-plugin-2)
 * [`storyblok-generate-types plugins update`](#storyblok-generate-types-plugins-update)
-
-## `storyblok-generate-types generate`
-
-Generate your Types
-
-```
-USAGE
-  $ storyblok-generate-types generate
-
-DESCRIPTION
-  Generate your Types
-
-EXAMPLES
-  $ oex generate
-  Pulled components successfully
-```
-
-_See code: [src/commands/generate/index.ts](https://github.com/Lilxdomi/storyblok-generate-types/blob/v1.0.6/src/commands/generate/index.ts)_
 
 ## `storyblok-generate-types help [COMMANDS]`
 

@@ -11,7 +11,7 @@ export interface Config {
 
 export function getConfig(): Config | null {
   try {
-    const data = fs.readFileSync(`${__dirname}/generateTypesConfig.json`, 'utf8')
+    const data = fs.readFileSync(`${process.cwd()}/generateTypesConfig.json`, 'utf8')
     return JSON.parse(data)
   } catch (error: any) {
     if (error.code === 'ENOENT') {
