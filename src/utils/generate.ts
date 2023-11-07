@@ -36,7 +36,7 @@ export async function generate() {
 
   const pullCommand = `cd ${__dirname}/json && storyblok pull-components --space=${config?.spaceId}`
 
-  const result = await new Promise((resolve, reject) => {
+  await new Promise((resolve, reject) => {
     exec(pullCommand, (error, _, stderr) => {
       if (error) {
         console.error(`Error: ${error.message}`)
