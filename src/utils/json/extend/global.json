@@ -1,1 +1,0 @@
-{"title":"global","id":"global","type":"object","properties":{"navigation":{"type":"array","tsType":"(SBNavigation)[]"},"footer":{"type":"array","tsType":"(SBFooter)[]"},"specialOfferBanner":{"type":"string"}}}
