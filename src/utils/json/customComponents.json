@@ -2,7 +2,7 @@
   "components": [
     {
       "name": "SBStory",
-      "allOf": [{"$ref": "storyblok/types/extendFiles/page.json"}],
+      "allOf": [],
       "schema": {
         "first_published_at": {
           "type": "text",

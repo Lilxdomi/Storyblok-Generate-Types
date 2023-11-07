@@ -1,0 +1,1 @@
+{"title":"categoryPage","id":"categoryPage","type":"object","properties":{"body":{"type":"array","tsType":"(SBAboPriceTable | SBAddressInformation | SBCategoryOverview | SBContactBox | SBContactForm | SBHeaderImage | SBImageGallery | SBImageText | SBInfoCard | SBInfoCardRow | SBNewsletter | SBProductDetail | SBRecipeImageHeader | SBTextBlock)[]"}}}
