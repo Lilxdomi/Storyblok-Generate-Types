@@ -1,6 +1,7 @@
 import fs from 'fs'
 import {exec} from 'child_process'
 import {handlerFunction} from './generate-types'
+import {stdout} from 'process'
 
 export interface Config {
   apiKey: string
@@ -35,19 +36,24 @@ export async function generate() {
 
   const pullCommand = `cd ${__dirname}/json && storyblok pull-components --space=${config?.spaceId}`
 
-  exec(pullCommand, (error, _, stderr) => {
-    if (error) {
-      console.error(`Error: ${error.message}`)
-      return
-    }
+  const result = await new Promise((resolve, reject) => {
+    exec(pullCommand, (error, _, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`)
+        reject(error)
+        return
+      }
 
-    if (stderr) {
-      console.error(`Command execution failed: ${stderr}`)
-      return
-    }
+      if (stderr) {
+        console.error(`Command execution failed: ${stderr}`)
+        reject(error)
+        return
+      }
 
-    console.log('Pulled components successfully')
+      console.info('Pulled components successfully')
+      resolve(stdout)
+    })
   })
 
-  // await handlerFunction()
+  await handlerFunction()
 }

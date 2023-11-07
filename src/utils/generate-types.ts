@@ -17,7 +17,7 @@ const cachedDatabaseResults = {}
 export async function handlerFunction(): Promise<Boolean> {
   const config = getConfig()
   if (!config) {
-    console.error('Config not initialized. Call init() with the configuration first.')
+    console.error('Config not initialized.')
     return false
   }
 
@@ -29,13 +29,13 @@ export async function handlerFunction(): Promise<Boolean> {
     },
   })
 
-  const pathToTsFile = config?.pathToGeneratedTsFile
-  // path to generated export component file
-  const pathToExtendFiles = './json/extend'
+  const pathToTsFile = config.pathToGeneratedTsFile || './generated.ts'
+  const pathToExtendFiles = `${__dirname}/json/extend`
 
   const componentsJson = JSON.parse(fs.readFileSync(`${__dirname}/json/components.${config.spaceId}.json`, 'utf8'))
   const customComponentsJson = JSON.parse(fs.readFileSync(`${__dirname}/json/customComponents.json`, 'utf8'))
-  const pathToExportComponents = JSON.parse(fs.readFileSync(`${__dirname}/json/exportComponents.json`, 'utf8'))
+  const exportComponents = JSON.parse(fs.readFileSync(`${__dirname}/json/exportComponents.json`, 'utf8'))
+  const pathToExportComponents = `${__dirname}/json/exportComponents.json`
 
   for (const value of componentsJson.components) {
     if (value.component_group_uuid) {
@@ -106,7 +106,7 @@ export async function handlerFunction(): Promise<Boolean> {
   }
 
   async function genExportTypes() {
-    for (const values of pathToExportComponents.components) {
+    for (const values of exportComponents.components) {
       let obj: {[key: string]: any} = {}
       obj = initialObject(values)
 
@@ -128,7 +128,6 @@ export async function handlerFunction(): Promise<Boolean> {
     for (const values of customComponentsJson.components) {
       let obj: {[key: string]: any} = {}
       obj = initialObject(values)
-
       const {enums, parseObj} = await typeMapper(values.schema)
       obj.properties = parseObj
       if (enums && Object.keys(enums)?.length) {
@@ -256,7 +255,6 @@ export async function handlerFunction(): Promise<Boolean> {
       if (schemaElement.allOf) {
         obj[key].allOf = schemaElement.allOf
       }
-
       if (schemaElement.datasource_slug) {
         obj[key].enum = await getDatabaseEntries(schemaElement, cacheVersion, schemaType)
       }

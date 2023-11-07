@@ -1,0 +1,1 @@
+{"title":"contact","id":"contact","type":"object","properties":{"image":{"tsType":"SBAssetFile"},"title":{"type":"string"},"name":{"type":"string"},"jobTitle":{"type":"string"}}}
