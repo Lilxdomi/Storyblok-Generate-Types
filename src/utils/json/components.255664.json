@@ -871,6 +871,33 @@
       "component_group_name": "Components"
     },
     {
+      "name": "labelTextItem",
+      "display_name": null,
+      "created_at": "2023-11-06T08:07:56.529Z",
+      "updated_at": "2023-11-06T08:08:05.148Z",
+      "id": 4839199,
+      "schema": {
+        "label": {
+          "type": "text"
+        },
+        "text": {
+          "type": "text"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "labelTextItem",
+      "component_group_uuid": "3f055db6-4752-402f-80fa-4ad209bf76c2",
+      "color": null,
+      "icon": null,
+      "component_group_name": "items"
+    },
+    {
       "name": "linkItem",
       "display_name": null,
       "created_at": "2023-10-06T06:38:08.872Z",
@@ -896,6 +923,35 @@
       "color": null,
       "icon": null,
       "component_group_name": "items"
+    },
+    {
+      "name": "manufacturingDetailList",
+      "display_name": null,
+      "created_at": "2023-11-06T07:38:57.617Z",
+      "updated_at": "2023-11-06T08:08:33.404Z",
+      "id": 4839105,
+      "schema": {
+        "items": {
+          "type": "bloks",
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "labelTextItem"
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "manufacturingDetailList",
+      "component_group_uuid": "b664c8e7-5a87-4b4f-9033-d9dee9764162",
+      "color": null,
+      "icon": null,
+      "component_group_name": "Inline Components"
     },
     {
       "name": "navigation",
@@ -1108,7 +1164,7 @@
       "name": "productDetailPage",
       "display_name": null,
       "created_at": "2023-10-17T14:48:40.795Z",
-      "updated_at": "2023-10-20T09:05:47.975Z",
+      "updated_at": "2023-11-06T08:24:53.061Z",
       "id": 4740637,
       "schema": {
         "productID": {
@@ -1160,7 +1216,7 @@
           "pos": 8
         },
         "text": {
-          "type": "text",
+          "type": "textarea",
           "pos": 9
         },
         "imageLeft": {
@@ -1179,7 +1235,18 @@
         },
         "details": {
           "type": "richtext",
-          "pos": 12
+          "pos": 12,
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "list",
+            "blok"
+          ],
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "productionDetails"
+          ]
         }
       },
       "image": null,
@@ -1194,6 +1261,54 @@
       "color": null,
       "icon": null,
       "component_group_name": "Content"
+    },
+    {
+      "name": "productionDetails",
+      "display_name": null,
+      "created_at": "2023-11-06T08:10:07.004Z",
+      "updated_at": "2023-11-06T08:31:16.074Z",
+      "id": 4839201,
+      "schema": {
+        "detailList": {
+          "type": "bloks",
+          "key": "test",
+          "pos": 0,
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "labelTextItem"
+          ]
+        },
+        "acidic": {
+          "type": "text",
+          "pos": 1
+        },
+        "alkaline": {
+          "type": "text",
+          "pos": 2
+        },
+        "additionalInfo": {
+          "type": "bloks",
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "textItem"
+          ],
+          "pos": 3
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "productionDetails",
+      "component_group_uuid": "b664c8e7-5a87-4b4f-9033-d9dee9764162",
+      "color": null,
+      "icon": null,
+      "component_group_name": "Inline Components"
     },
     {
       "name": "recipeImageHeader",
@@ -1269,86 +1384,6 @@
       "component_group_name": "items"
     },
     {
-      "name": "TestBlock",
-      "display_name": null,
-      "created_at": "2023-10-24T05:21:01.015Z",
-      "updated_at": "2023-10-24T08:28:41.853Z",
-      "id": 4773194,
-      "schema": {
-        "date": {
-          "type": "datetime",
-          "pos": 0
-        },
-        "Enum": {
-          "type": "option",
-          "use_uuid": true,
-          "options": [
-            {
-              "_uid": "1a2b6622-a160-4d23-b0ec-836e1c72f16b",
-              "name": "Value 1",
-              "value": "value1"
-            },
-            {
-              "_uid": "36825d60-6c90-4e7c-8753-abfe39654921",
-              "value": "value2",
-              "name": "Value 2"
-            },
-            {
-              "_uid": "6fd21abd-d96b-46a6-87a7-8ea2fa6b7fde",
-              "value": "value3",
-              "name": "Value 3"
-            }
-          ],
-          "pos": 1
-        },
-        "MultiselectEnum": {
-          "type": "options",
-          "pos": 2,
-          "options": [
-            {
-              "_uid": "ad38b883-5cfc-4f61-9efd-63699639fdcc",
-              "name": "Value 1",
-              "value": "value1"
-            },
-            {
-              "_uid": "be1ddc07-9489-4afe-b29d-e60610a9a46c",
-              "value": "value2",
-              "name": "Value 2"
-            },
-            {
-              "_uid": "a7303850-1c73-439d-bd7c-6b91e2ea9a04",
-              "value": "value3",
-              "name": "Value 3"
-            }
-          ]
-        },
-        "number": {
-          "type": "number",
-          "pos": 3
-        },
-        "testOption": {
-          "type": "option",
-          "use_uuid": true,
-          "source": "internal_stories",
-          "filter_content_type": [
-            "page"
-          ]
-        }
-      },
-      "image": null,
-      "preview_field": null,
-      "is_root": false,
-      "preview_tmpl": null,
-      "is_nestable": true,
-      "all_presets": [],
-      "preset_id": null,
-      "real_name": "TestBlock",
-      "component_group_uuid": "e5055d6b-f12a-47c5-8453-b1de33edcf35",
-      "color": null,
-      "icon": null,
-      "component_group_name": "Components"
-    },
-    {
       "name": "textBlock",
       "display_name": null,
       "created_at": "2023-10-06T06:22:27.223Z",
@@ -1385,6 +1420,30 @@
       "color": null,
       "icon": null,
       "component_group_name": "Components"
+    },
+    {
+      "name": "textItem",
+      "display_name": null,
+      "created_at": "2023-11-06T08:11:45.745Z",
+      "updated_at": "2023-11-06T08:11:51.416Z",
+      "id": 4839202,
+      "schema": {
+        "text": {
+          "type": "text"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "textItem",
+      "component_group_uuid": "3f055db6-4752-402f-80fa-4ad209bf76c2",
+      "color": null,
+      "icon": null,
+      "component_group_name": "items"
     }
   ]
 }
