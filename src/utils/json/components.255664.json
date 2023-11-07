@@ -171,6 +171,33 @@
       "component_group_name": "unplacable Components"
     },
     {
+      "name": "categoryOverview",
+      "display_name": null,
+      "created_at": "2023-11-07T11:15:05.479Z",
+      "updated_at": "2023-11-07T11:29:37.169Z",
+      "id": 4847485,
+      "schema": {
+        "title": {
+          "type": "text"
+        },
+        "description": {
+          "type": "textarea"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "categoryOverview",
+      "component_group_uuid": "e5055d6b-f12a-47c5-8453-b1de33edcf35",
+      "color": null,
+      "icon": null,
+      "component_group_name": "Components"
+    },
+    {
       "name": "categoryPage",
       "display_name": null,
       "created_at": "2023-10-06T12:12:49.551Z",

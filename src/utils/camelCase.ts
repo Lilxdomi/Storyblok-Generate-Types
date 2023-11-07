@@ -39,7 +39,6 @@ export default function camelCase(input: string | string[], options?: {pascalCas
   }
 
   const toLowerCase = (string: string) => string.toLowerCase()
-
   const toUpperCase = (string: string) => string.toUpperCase()
 
   if (input.length === 1) {

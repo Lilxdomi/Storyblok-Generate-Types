@@ -4,6 +4,7 @@ import fs from 'fs'
 import StoryblokClient from 'storyblok-js-client'
 import {getConfig} from './generate'
 import camelCase from './camelCase'
+import {generateCustomComponents} from './generateCustomComponents'
 
 const tsString: string[] = []
 const groupUuids = {}
@@ -33,7 +34,7 @@ export async function handlerFunction(): Promise<Boolean> {
   const pathToExtendFiles = `${__dirname}/json/extend`
 
   const componentsJson = JSON.parse(fs.readFileSync(`${__dirname}/json/components.${config.spaceId}.json`, 'utf8'))
-  const customComponentsJson = JSON.parse(fs.readFileSync(`${__dirname}/json/customComponents.json`, 'utf8'))
+  const customComponentsJson = generateCustomComponents()
   const exportComponents = JSON.parse(fs.readFileSync(`${__dirname}/json/exportComponents.json`, 'utf8'))
   const pathToExportComponents = `${__dirname}/json/exportComponents.json`
 
@@ -126,6 +127,7 @@ export async function handlerFunction(): Promise<Boolean> {
 
   async function genFixedTsSchema() {
     for (const values of customComponentsJson.components) {
+      if (!values) continue
       let obj: {[key: string]: any} = {}
       obj = initialObject(values)
       const {enums, parseObj} = await typeMapper(values.schema)
@@ -359,6 +361,8 @@ async function generateEnums(enums) {
 
 function initialObject(values, sbTitle?: boolean, addHardcodedProps?: boolean) {
   const obj: {[key: string]: any} = {}
+
+  if (!values) return obj
   obj.title = sbTitle
     ? getTitle(
         camelCase(values.name, {

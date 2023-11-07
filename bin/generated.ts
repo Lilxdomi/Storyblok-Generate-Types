@@ -94,10 +94,19 @@ export interface SBButton {
   [k: string]: any;
 }
 
+export interface SBCategoryoverview {
+  title?: string;
+  description?: string;
+  _uid?: string;
+  component?: "categoryOverview";
+  [k: string]: any;
+}
+
 export interface SBCategorypage {
   body?: (
     | SBAbopricetable
     | SBAddressinformation
+    | SBCategoryoverview
     | SBContactbox
     | SBContactform
     | SBHeaderimage
@@ -325,6 +334,7 @@ export interface SBPage {
   body?: (
     | SBAbopricetable
     | SBAddressinformation
+    | SBCategoryoverview
     | SBContactbox
     | SBContactform
     | SBHeaderimage
