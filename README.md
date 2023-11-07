@@ -8,6 +8,7 @@ This package is designed to automatically generate types based on the components
 <!-- toc -->
 
 - [Usage](#usage)
+- [Requirements](#requirements)
 - [Commands](#commands)
 <!-- tocstop -->
 
