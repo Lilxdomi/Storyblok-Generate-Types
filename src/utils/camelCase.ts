@@ -1,3 +1,6 @@
+// Credits go to the founder of the original camelcase package -> sindresorhus
+// I only copied this code to reduce dependencies
+
 const UPPERCASE = /[\p{Lu}]/u
 const LOWERCASE = /[\p{Ll}]/u
 const SEPARATORS = /[_.\- ]+/
