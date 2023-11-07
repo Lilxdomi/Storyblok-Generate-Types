@@ -15,15 +15,11 @@
   "devDependencies": {
     "@oclif/prettier-config": "^0.2.1",
     "@oclif/test": "^3",
-    "@types/chai": "^4",
-    "@types/mocha": "^9.0.0",
     "@types/node": "^18",
-    "chai": "^4",
     "eslint": "^8.53.0",
     "eslint-config-oclif": "^5",
     "eslint-config-oclif-typescript": "^3",
     "eslint-config-prettier": "^9.0.0",
-    "mocha": "^10",
     "oclif": "^3.17.2",
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",
@@ -58,15 +54,13 @@
   },
   "repository": "Lilxdomi/storyblok-generate-types",
   "scripts": {
-    "postbuild": "cp -r ./src/utils/json ./dist/utils",
+    "postbuild": "cp -r ./src/utils/json ./dist/utils && rm -rf tsconfig.tsbuildinfo",
     "build": "shx rm -rf dist && tsc -b -f",
     "lint": "eslint . --ext .ts",
     "posttest": "yarn lint",
-    "prepublish": "yarn build",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif readme && git add README.md"
+    "prepublish": "yarn build"
   },
-  "version": "1.0.9",
+  "version": "1.0.10",
   "bugs": "https://github.com/Lilxdomi/storyblok-generate-types/issues",
   "keywords": [
     "oclif"
