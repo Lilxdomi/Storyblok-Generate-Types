@@ -60,7 +60,7 @@
     "posttest": "yarn lint",
     "prepublish": "yarn build"
   },
-  "version": "1.0.10",
+  "version": "1.0.11",
   "bugs": "https://github.com/Lilxdomi/storyblok-generate-types/issues",
   "keywords": [
     "oclif"
