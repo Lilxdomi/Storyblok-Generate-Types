@@ -7,6 +7,7 @@ import camelCase from './camelCase'
 import {generateCustomComponents} from './generateCustomComponents'
 
 const tsString: string[] = []
+const exportFiles: string[] = []
 const groupUuids = {}
 const getTitle = (t: string) => 'SB' + t
 const getEnumName = (key: string) =>
@@ -34,7 +35,6 @@ export async function handlerFunction(): Promise<Boolean> {
   const pathToExtendFiles = `${__dirname}/json/extend`
 
   const componentsJson = JSON.parse(fs.readFileSync(`${__dirname}/json/components.${config.spaceId}.json`, 'utf8'))
-  const customComponentsJson = generateCustomComponents()
   const exportComponents = JSON.parse(fs.readFileSync(`${__dirname}/json/exportComponents.json`, 'utf8'))
   const pathToExportComponents = `${__dirname}/json/exportComponents.json`
 
@@ -59,6 +59,7 @@ export async function handlerFunction(): Promise<Boolean> {
   })
 
   async function genTsSchema() {
+    tsString.push('/* eslint-disable no-unused-vars */')
     await genExportComponentFile()
     await genExportTypes()
     await genFixedTsSchema()
@@ -95,9 +96,12 @@ export async function handlerFunction(): Promise<Boolean> {
   async function genExportComponentFile() {
     const exportComponents = []
     for (const values of componentsJson.components) {
-      if (!values.is_root) continue
+      if (!values.is_root || !!values.is_nestable || !!values.component_group_name?.toLowerCase().includes('component'))
+        continue
+
       try {
         exportComponents.push(JSON.stringify(values))
+        exportFiles.push(values.name)
       } catch (error) {
         console.error('genExportComponentFile failed', error)
       }
@@ -126,6 +130,7 @@ export async function handlerFunction(): Promise<Boolean> {
   }
 
   async function genFixedTsSchema() {
+    const customComponentsJson = await generateCustomComponents(exportFiles)
     for (const values of customComponentsJson.components) {
       if (!values) continue
       let obj: {[key: string]: any} = {}
