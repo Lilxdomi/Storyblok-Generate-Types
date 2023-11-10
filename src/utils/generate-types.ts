@@ -290,7 +290,9 @@ export async function handlerFunction(): Promise<Boolean> {
           // the cache bloks the usability of the script
           per_page: 100,
         })
-        items = result.data.datasource_entries.map((item) => item.value)
+        if (result.data.datasource_entries?.length) {
+          items = result.data.datasource_entries.map((item) => item.value)
+        }
       } catch (error) {
         console.error('get CDN Failed', JSON.stringify(error))
         items = []
@@ -340,6 +342,7 @@ async function generateEnums(enums) {
       if (alreadyGeneratedEnums.includes(key)) continue
       const parsedKeyName = getEnumName(key)
       const enumStrings = enums[key]
+      if (!enumStrings?.length) continue
       const parsedNames = enumStrings.map((item) =>
         camelCase(item, {
           pascalCase: true,
