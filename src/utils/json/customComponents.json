@@ -2,30 +2,77 @@
   "components": [
     {
       "name": "SBStory",
-      "allOf": [],
+      "type": "object",
       "schema": {
-        "first_published_at": {
+        "name": {
           "type": "text",
-          "required": false,
-          "pos": 1
+          "required": true
         },
-        "default_full_slug": {
+        "created_at": {
           "type": "text",
-          "required": true,
-          "pos": 2
+          "required": true
+        },
+        "published_at": {
+          "type": "text",
+          "required": false
+        },
+        "id": {
+          "type": "number",
+          "required": true
+        },
+        "uuid": {
+          "type": "number",
+          "required": true
+        },
+        "content": {
+          "type": "storyContent"
+        },
+        "slug": {
+          "type": "text",
+          "required": true
         },
         "full_slug": {
           "type": "text",
-          "required": true,
-          "pos": 3
+          "required": true
         },
-        "tags": {
+        "position": {
+          "type": "number",
+          "required": true
+        },
+        "is_startpage": {
+          "type": "boolean",
+          "required": true
+        },
+        "parent_id": {
+          "type": "text",
+          "required": false
+        },
+        "group_id": {
+          "type": "text",
+          "required": false
+        },
+        "first_published_at": {
+          "type": "text",
+          "required": false
+        },
+        "release_id": {
+          "type": "text",
+          "required": false
+        },
+        "lang": {
+          "type": "text",
+          "required": true
+        },
+        "default_full_slug": {
+          "type": "text",
+          "required": false
+        },
+        "tag_list": {
           "type": "customArray",
           "required": false,
           "items": {
-            "tsType": "String"
-          },
-          "pos": 4
+            "tsType": "string"
+          }
         }
       }
     },

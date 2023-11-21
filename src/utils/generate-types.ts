@@ -9,7 +9,7 @@ import {generateCustomComponents} from './generateCustomComponents'
 const tsString: string[] = []
 const exportFiles: string[] = []
 const groupUuids = {}
-const getTitle = (t: string) => 'SB' + t
+export const getTitle = (t: string) => 'SB' + t
 const getEnumName = (key: string) =>
   `${camelCase(key, {
     pascalCase: true,
@@ -32,10 +32,8 @@ export async function handlerFunction(): Promise<Boolean> {
   })
 
   const pathToTsFile = config.pathToGeneratedTsFile || './generated.ts'
-  const pathToExtendFiles = `${__dirname}/json/extend`
 
   const componentsJson = JSON.parse(fs.readFileSync(`${__dirname}/json/components.${config.spaceId}.json`, 'utf8'))
-  const exportComponents = JSON.parse(fs.readFileSync(`${__dirname}/json/exportComponents.json`, 'utf8'))
   const pathToExportComponents = `${__dirname}/json/exportComponents.json`
 
   for (const value of componentsJson.components) {
@@ -62,20 +60,25 @@ export async function handlerFunction(): Promise<Boolean> {
   async function genTsSchema() {
     tsString.push('/* eslint-disable no-unused-vars */')
     await genExportComponentFile()
-    await genExportTypes()
     await genFixedTsSchema()
     for (const values of componentsJson.components) {
       let obj: {[key: string]: any} = {}
+      let isContentType = false
       obj = initialObject(values, true, false)
-
       const {enums, parseObj} = await typeMapper(values.schema)
-      obj.properties = parseObj
-      obj.properties._uid = {
-        type: 'string',
+      if (exportFiles.includes(values.name)) {
+        isContentType = true
       }
-      obj.properties.component = {
-        enum: [values.name],
-        type: 'string',
+
+      obj.properties = parseObj
+      if (!isContentType) {
+        obj.properties._uid = {
+          type: 'string',
+        }
+        obj.properties.component = {
+          enum: [values.name],
+          type: 'string',
+        }
       }
 
       if (enums && Object.keys(enums)?.length) {
@@ -109,25 +112,6 @@ export async function handlerFunction(): Promise<Boolean> {
     }
 
     fs.writeFileSync(pathToExportComponents, `{"components": [${exportComponents.join(',')}]}`)
-  }
-
-  async function genExportTypes() {
-    for (const values of exportComponents.components) {
-      let obj: {[key: string]: any} = {}
-      obj = initialObject(values)
-
-      const {enums, parseObj} = await typeMapper(values.schema)
-      obj.properties = parseObj
-      if (enums && Object.keys(enums)?.length) {
-        await generateEnums(enums)
-      }
-
-      try {
-        fs.writeFileSync(`${pathToExtendFiles}/${values.name}.json`, `${JSON.stringify(obj)}`)
-      } catch (error) {
-        console.error('error writing the genExportTypes file', error)
-      }
-    }
   }
 
   async function genFixedTsSchema() {
@@ -165,10 +149,19 @@ export async function handlerFunction(): Promise<Boolean> {
       const key = keys[i]
       const obj: {[key: string]: any} = {}
       const schemaElement = schema[key]
-      const {type} = schemaElement
+      const {type, schema: elementSchema, required} = schemaElement
 
       // Custom resolves for special SB types
       switch (type) {
+        case 'storyContent': {
+          Object.assign(parseObj, {
+            [key]: {
+              tsType: schemaElement.tsType,
+            },
+          })
+          break
+        }
+
         case 'custom': {
           Object.assign(parseObj, customTypeParser(key, schemaElement))
           break
@@ -213,7 +206,6 @@ export async function handlerFunction(): Promise<Boolean> {
             Object.assign(parseObj, {[key]: {tsType: getEnumName(key)}})
             enums[key] = schemaElement.options?.map((item) => item.value)
           }
-
           break
         }
 
@@ -224,7 +216,6 @@ export async function handlerFunction(): Promise<Boolean> {
             Object.assign(parseObj, {[key]: {tsType: `${getEnumName(key)}[]`}})
             enums[key] = schemaElement.options?.map((item) => item.value)
           }
-
           break
         }
 
@@ -260,8 +251,22 @@ export async function handlerFunction(): Promise<Boolean> {
         type: schemaType,
       }
 
+      if (elementSchema) {
+        obj[key].properties = elementSchema
+      }
+
+      if (required) {
+        obj[key].required = required
+      }
+
       if (schemaElement.allOf) {
         obj[key].allOf = schemaElement.allOf
+      }
+      if (schemaElement.anyOf) {
+        obj[key].anyOf = schemaElement.anyOf
+      }
+      if (schemaElement.oneOf) {
+        obj[key].oneOf = schemaElement.oneOf
       }
       if (schemaElement.datasource_slug) {
         obj[key].enum = await getDatabaseEntries(schemaElement, cacheVersion, schemaType)
@@ -387,6 +392,14 @@ function initialObject(values, sbTitle?: boolean, addHardcodedProps?: boolean) {
     obj.allOf = values.allOf
   }
 
+  if (values.anyOf) {
+    obj.anyOf = values.anyOf
+  }
+
+  if (values.oneOf) {
+    obj.oneOf = values.oneOf
+  }
+
   const requiredFields = addHardcodedProps ? ['_uid', 'component'] : []
   if (values.schema) {
     for (const key of Object.keys(values.schema)) {
@@ -468,6 +481,10 @@ function parseType(type: string) {
     // customComponent helper
     case 'customArray': {
       return 'customArray'
+    }
+
+    case 'customObject': {
+      return 'customObject'
     }
 
     case 'object': {

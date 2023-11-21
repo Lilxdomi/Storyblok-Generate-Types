@@ -1,7 +1,6 @@
 import fs from 'fs'
-import {exec, spawn} from 'child_process'
+import {spawn} from 'child_process'
 import {handlerFunction} from './generate-types'
-import {stdout} from 'process'
 
 export interface Config {
   apiKey: string

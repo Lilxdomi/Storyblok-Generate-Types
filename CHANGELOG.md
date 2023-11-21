@@ -32,3 +32,8 @@
 
 - Bumped dependency versions
 - Removed @oclif/test dependency
+
+### 1.1.0
+
+- Changed the SBStory type a lot to better reflect the actual Storyblok type
+- Removed the duplicate type generation of Storyblok content types
