@@ -25,7 +25,8 @@
           "required": true
         },
         "content": {
-          "type": "storyContent"
+          "type": "storyContent",
+          "required": true
         },
         "slug": {
           "type": "text",

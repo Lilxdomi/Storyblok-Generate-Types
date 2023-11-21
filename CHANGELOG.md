@@ -37,3 +37,7 @@
 
 - Changed the SBStory type a lot to better reflect the actual Storyblok type
 - Removed the duplicate type generation of Storyblok content types
+
+### 1.1.1
+
+- Changed SBStory content to required
