@@ -1,5 +1,5 @@
 import fs from 'fs'
-import {exec} from 'child_process'
+import {exec, spawn} from 'child_process'
 import {handlerFunction} from './generate-types'
 import {stdout} from 'process'
 
@@ -37,21 +37,21 @@ export async function generate() {
   const pullCommand = `cd ${__dirname}/json && storyblok pull-components --space=${config?.spaceId}`
 
   await new Promise((resolve, reject) => {
-    exec(pullCommand, (error, _, stderr) => {
-      if (error) {
-        console.error(`Error: ${error.message}`)
-        reject(error)
-        return
-      }
+    const childProcess = spawn('sh', ['-c', pullCommand], {stdio: 'inherit'})
 
-      if (stderr) {
-        console.error(`Command execution failed: ${stderr}`)
-        reject(error)
-        return
+    childProcess.on('exit', (code) => {
+      if (code === 0) {
+        console.info('Pulled components successfully')
+        resolve(code)
+      } else {
+        console.error(`Command exited with code ${code}`)
+        reject(code)
       }
+    })
 
-      console.info('Pulled components successfully')
-      resolve(stdout)
+    childProcess.on('error', (err) => {
+      console.error(`Process error: ${err}`)
+      reject(err)
     })
   })
 

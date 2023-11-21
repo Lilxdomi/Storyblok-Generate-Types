@@ -56,6 +56,7 @@ export async function handlerFunction(): Promise<Boolean> {
 
   genTsSchema().then(() => {
     fs.writeFileSync(pathToTsFile, tsString.join('\n'))
+    console.info('Finished generating types')
   })
 
   async function genTsSchema() {
