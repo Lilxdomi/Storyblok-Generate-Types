@@ -14,7 +14,6 @@
   "readme": "README.md",
   "devDependencies": {
     "@oclif/prettier-config": "^0.2.1",
-    "@oclif/test": "^3",
     "@types/node": "^18",
     "eslint": "^8.53.0",
     "eslint-config-oclif": "^5",

@@ -13,7 +13,6 @@
 
 - Changed automatic docs to handwritten docs
 - Added credits to the camelCase.ts file
--
 
 ### 1.0.11
 
@@ -28,3 +27,8 @@
 - Added the CHANGELOG.md file
 - Fixed the command going stale
   - now the Storyblok command thats called is exposed to the user, it is shown correctly now, if the token is not valid or the user is not logged in
+
+### 1.0.14
+
+- Bumped dependency versions
+- Removed @oclif/test dependency
