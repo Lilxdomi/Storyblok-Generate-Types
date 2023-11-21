@@ -69,8 +69,7 @@ You need to create a `generateTypesConfig.json` file to pass the needed options.
 
 You need to install the `storyblok` cli globally so you can do `storyblok login`. This is needed, because the pull command verifies the authorization of the user.
 
-This token will invalidate itself after about 2 weeks and the command will go stale and return no response. If this happens you need to do `storyblok logout` and `storyblok login` again.
-I will immprove this handling in a future version and return an error if this happens.
+This token will invalidate itself after about 2 weeks. If your token is not valid or if you are not logged in, Storyblok will ask you to login in the terminal.
 
 <!-- goodtoknowstop -->
 
