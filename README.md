@@ -54,7 +54,7 @@ You need to create a `generateTypesConfig.json` file to pass the needed options.
 
 ```
 {
-  "apiKey": "YOUR_SPACE_ID",
+  "apiKey": "YOUR_API_TOKEN",
   "spaceId": "123456",
   "pathToGeneratedTsFile": "./generated.ts"
 }
