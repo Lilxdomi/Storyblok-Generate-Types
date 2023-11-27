@@ -41,3 +41,8 @@
 ### 1.1.1
 
 - Changed SBStory content to required
+
+### 1.1.2
+
+- Fixed a small issue in the docs
+- Added functionality to automatically create output folders, if they don't exist when generating the output file.

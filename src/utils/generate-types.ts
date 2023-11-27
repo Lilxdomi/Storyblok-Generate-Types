@@ -1,6 +1,7 @@
-// @ts-nocheck
+//@ts-nocheck
 import {compile} from 'json-schema-to-typescript'
 import fs from 'fs'
+import path from 'path'
 import StoryblokClient from 'storyblok-js-client'
 import {getConfig} from './generate'
 import camelCase from './camelCase'
@@ -53,8 +54,17 @@ export async function handlerFunction(): Promise<Boolean> {
   }
 
   genTsSchema().then(() => {
-    fs.writeFileSync(pathToTsFile, tsString.join('\n'))
-    console.info('Finished generating types')
+    try {
+      const outputDir = path.dirname(pathToTsFile)
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, {recursive: true})
+      }
+      fs.writeFileSync(pathToTsFile, tsString.join('\n'))
+      console.info('Finished generating types')
+    } catch (e) {
+      console.error('Error creating the file on your system')
+      console.error(e)
+    }
   })
 
   async function genTsSchema() {
