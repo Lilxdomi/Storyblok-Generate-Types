@@ -213,8 +213,14 @@ export async function handlerFunction(): Promise<Boolean> {
           if (schemaElement.filter_content_type) {
             Object.assign(parseObj, {[key]: {tsType: getOptionsTypes(schemaElement.filter_content_type, true)}})
           } else {
-            Object.assign(parseObj, {[key]: {tsType: getEnumName(key)}})
-            enums[key] = schemaElement.options?.map((item) => item.value)
+            if (!!schemaElement.datasource_slug) {
+              const databaseEntries = await getDatabaseEntries(schemaElement, cacheVersion, 'string')
+              Object.assign(parseObj, {[key]: {tsType: getEnumName(schemaElement.datasource_slug)}})
+              enums[schemaElement.datasource_slug] = databaseEntries
+            } else {
+              Object.assign(parseObj, {[key]: {tsType: getEnumName(key)}})
+              enums[key] = schemaElement.options?.map((item) => item.value)
+            }
           }
           break
         }
@@ -223,8 +229,14 @@ export async function handlerFunction(): Promise<Boolean> {
           if (schemaElement.filter_content_type) {
             Object.assign(parseObj, {[key]: {tsType: getOptionsTypes(schemaElement.filter_content_type, false)}})
           } else {
-            Object.assign(parseObj, {[key]: {tsType: `${getEnumName(key)}[]`}})
-            enums[key] = schemaElement.options?.map((item) => item.value)
+            if (!!schemaElement.datasource_slug) {
+              const databaseEntries = await getDatabaseEntries(schemaElement, cacheVersion, 'string')
+              Object.assign(parseObj, {[key]: {tsType: `${getEnumName(schemaElement.datasource_slug)}[]`}})
+              enums[schemaElement.datasource_slug] = databaseEntries
+            } else {
+              Object.assign(parseObj, {[key]: {tsType: `${getEnumName(key)}[]`}})
+              enums[key] = schemaElement.options?.map((item) => item.value)
+            }
           }
           break
         }
@@ -301,11 +313,13 @@ export async function handlerFunction(): Promise<Boolean> {
         const result = await Storyblok.get('cdn/datasource_entries', {
           // the cacheVersion is created on every script run
           cv: cacheVersion,
-          datasource: schemaElement.datasource_slug,
+          datasource: 'colors',
+          page: 1,
           // ignore the cache, in case of datasource changes
           // the cache bloks the usability of the script
           per_page: 100,
         })
+
         if (result.data.datasource_entries?.length) {
           items = result.data.datasource_entries.map((item) => item.value)
         }

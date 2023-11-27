@@ -46,3 +46,7 @@
 
 - Fixed a small issue in the docs
 - Added functionality to automatically create output folders, if they don't exist when generating the output file.
+
+### 1.1.3
+
+- Fixed datasource parsing
