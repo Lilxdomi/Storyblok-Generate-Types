@@ -313,7 +313,7 @@ export async function handlerFunction(): Promise<Boolean> {
         const result = await Storyblok.get('cdn/datasource_entries', {
           // the cacheVersion is created on every script run
           cv: cacheVersion,
-          datasource: 'colors',
+          datasource: schemaElement.datasource_slug,
           page: 1,
           // ignore the cache, in case of datasource changes
           // the cache bloks the usability of the script

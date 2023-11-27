@@ -50,3 +50,7 @@
 ### 1.1.3
 
 - Fixed datasource parsing
+
+### 1.1.4
+
+- Removed hardcoded value from testing the datsource parsing -.-
