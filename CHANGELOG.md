@@ -54,3 +54,9 @@
 ### 1.1.4
 
 - Removed hardcoded value from testing the datsource parsing -.-
+
+### 1.1.5
+
+- Removed unused exportComponents file
+- Changed Richtext to be more flexible
+- Moved component prop to content types, this should allow better checking

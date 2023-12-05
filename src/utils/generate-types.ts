@@ -8,7 +8,7 @@ import camelCase from './camelCase'
 import {generateCustomComponents} from './generateCustomComponents'
 
 const tsString: string[] = []
-const exportFiles: string[] = []
+const referenceTypes: string[] = []
 const groupUuids = {}
 export const getTitle = (t: string) => 'SB' + t
 const getEnumName = (key: string) =>
@@ -35,7 +35,6 @@ export async function handlerFunction(): Promise<Boolean> {
   const pathToTsFile = config.pathToGeneratedTsFile || './generated.ts'
 
   const componentsJson = JSON.parse(fs.readFileSync(`${__dirname}/json/components.${config.spaceId}.json`, 'utf8'))
-  const pathToExportComponents = `${__dirname}/json/exportComponents.json`
 
   for (const value of componentsJson.components) {
     if (value.component_group_uuid) {
@@ -76,17 +75,17 @@ export async function handlerFunction(): Promise<Boolean> {
       let isContentType = false
       obj = initialObject(values, true, false)
       const {enums, parseObj} = await typeMapper(values.schema)
-      if (exportFiles.includes(values.name)) {
+      if (referenceTypes.includes(values.name)) {
         isContentType = true
       }
 
       obj.properties = parseObj
+      obj.properties.component = {
+        enum: [values.name],
+        type: 'string',
+      }
       if (!isContentType) {
         obj.properties._uid = {
-          type: 'string',
-        }
-        obj.properties.component = {
-          enum: [values.name],
           type: 'string',
         }
       }
@@ -108,24 +107,20 @@ export async function handlerFunction(): Promise<Boolean> {
   }
 
   async function genExportComponentFile() {
-    const exportComponents = []
     for (const values of componentsJson.components) {
       if (!values.is_root || !!values.is_nestable || !!values.component_group_name?.toLowerCase().includes('component'))
         continue
 
       try {
-        exportComponents.push(JSON.stringify(values))
-        exportFiles.push(values.name)
+        referenceTypes.push(values.name)
       } catch (error) {
         console.error('genExportComponentFile failed', error)
       }
     }
-
-    fs.writeFileSync(pathToExportComponents, `{"components": [${exportComponents.join(',')}]}`)
   }
 
   async function genFixedTsSchema() {
-    const customComponentsJson = await generateCustomComponents(exportFiles)
+    const customComponentsJson = await generateCustomComponents(referenceTypes)
     for (const values of customComponentsJson.components) {
       if (!values) continue
       let obj: {[key: string]: any} = {}

@@ -19,7 +19,6 @@ export function generateCustomComponents(allFiles: string[]): Promise<JSON> {
       const content = item.schema.content
 
       content.tsType = `(${parsedTitles.join(' | ')}) & {
-        component: ${allFiles.map((item) => `"${item}"`).join(' | ')}; 
         _uid: string; 
         _editable: string
       }`
