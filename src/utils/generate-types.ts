@@ -15,6 +15,16 @@ const getEnumName = (key: string) =>
   `${camelCase(key, {
     pascalCase: true,
   })}Enum`
+const suffixEnum = (name: string) => {
+  const number = name.split('_')?.[1]
+  const parsedNumber = number && parseInt(number)
+
+  if (parsedNumber) {
+    return name + `_${parsedNumber + 1}`
+  } else {
+    return name + '_1'
+  }
+}
 const cachedDatabaseResults = {}
 
 export async function handlerFunction(): Promise<Boolean> {
@@ -360,12 +370,17 @@ const getOptionsTypes = (types, single?: boolean) => {
 }
 
 const alreadyGeneratedEnums: string[] = []
+const usedEnums: string[] = []
 async function generateEnums(enums) {
   const objKeys = Object.keys(enums)
   if (objKeys?.length) {
     for (const key of objKeys) {
       if (alreadyGeneratedEnums.includes(key)) continue
-      const parsedKeyName = getEnumName(key)
+      let parsedKeyName = getEnumName(key)
+
+      while (usedEnums.includes(parsedKeyName)) {
+        parsedKeyName = suffixEnum(parsedKeyName)
+      }
       const enumStrings = enums[key]
       if (!enumStrings?.length) continue
       const parsedNames = enumStrings.map((item) =>
@@ -378,6 +393,7 @@ async function generateEnums(enums) {
         tsEnumNames: parsedNames,
         type: 'string',
       }
+
       try {
         const ts = await compile(obj, parsedKeyName, {
           bannerComment: '',
@@ -385,6 +401,7 @@ async function generateEnums(enums) {
         })
         tsString.push(ts)
         alreadyGeneratedEnums.push(key)
+        usedEnums.push(parsedKeyName)
       } catch (error) {
         console.error(error)
       }

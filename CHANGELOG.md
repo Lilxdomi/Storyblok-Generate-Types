@@ -60,3 +60,7 @@
 - Removed unused exportComponents file
 - Changed Richtext to be more flexible
 - Moved component prop to content types, this should allow better checking
+
+### 1.1.6
+
+- Added support for multiple enums with the same generated name
