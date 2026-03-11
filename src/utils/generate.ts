@@ -33,7 +33,7 @@ export async function generate() {
     return null
   }
 
-  const pullCommand = `cd ${__dirname}/json && storyblok pull-components --space=${config?.spaceId}`
+  const pullCommand = `storyblok components pull --space ${config.spaceId} --path ${__dirname}/json`
 
   await new Promise((resolve, reject) => {
     const childProcess = spawn('sh', ['-c', pullCommand], {stdio: 'inherit'})
