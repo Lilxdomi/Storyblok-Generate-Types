@@ -64,3 +64,15 @@
 ### 1.1.6
 
 - Added support for multiple enums with the same generated name
+
+### 2.0.0
+
+- **BREAKING:** Requires Storyblok CLI v4 (`storyblok components pull` instead of `storyblok pull-components`)
+- **BREAKING:** Requires Node.js >= 20
+- Updated all dependencies to latest major versions
+  - @oclif/core ^3 -> ^4, @oclif/plugin-help ^5 -> ^6, @oclif/plugin-plugins ^4 -> ^5
+  - storyblok-js-client ^6 -> ^7
+  - json-schema-to-typescript ^13 -> ^15
+- Migrated ESLint to v9 flat config with typescript-eslint
+- Removed shx dependency
+- Removed unused eslint-config-oclif, eslint-config-oclif-typescript, eslint-config-prettier

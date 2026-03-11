@@ -44,9 +44,9 @@ export async function handlerFunction(): Promise<Boolean> {
 
   const pathToTsFile = config.pathToGeneratedTsFile || './generated.ts'
 
-  const componentsJson = JSON.parse(fs.readFileSync(`${__dirname}/json/components.${config.spaceId}.json`, 'utf8'))
+  const components = JSON.parse(fs.readFileSync(`${__dirname}/json/components/${config.spaceId}/components.json`, 'utf8'))
 
-  for (const value of componentsJson.components) {
+  for (const value of components) {
     if (value.component_group_uuid) {
       if (!groupUuids[value.component_group_uuid]) {
         groupUuids[value.component_group_uuid] = []
@@ -80,7 +80,7 @@ export async function handlerFunction(): Promise<Boolean> {
     tsString.push('/* eslint-disable no-unused-vars */')
     await genExportComponentFile()
     await genFixedTsSchema()
-    for (const values of componentsJson.components) {
+    for (const values of components) {
       let obj: {[key: string]: any} = {}
       let isContentType = false
       obj = initialObject(values, true, false)
@@ -117,7 +117,7 @@ export async function handlerFunction(): Promise<Boolean> {
   }
 
   async function genExportComponentFile() {
-    for (const values of componentsJson.components) {
+    for (const values of components) {
       if (!values.is_root || !!values.is_nestable || !!values.component_group_name?.toLowerCase().includes('component'))
         continue
 
